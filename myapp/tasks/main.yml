@@ -1,0 +1,21 @@
+---
+# tasks file for myapp
+
+- import_tasks: packages.yml
+
+- import_tasks: useradd.yml
+
+- import_tasks: createdb.yml
+
+- import_tasks: gitadd.yml
+
+- import_tasks: venv.yml
+
+- import_tasks: updateenv.yml
+
+- import_tasks: gunicorn.yml
+
+- import_tasks: supergunicorn.yml
+
+- import_tasks: nginx.yml
+

@@ -1,0 +1,20 @@
+---
+- name: Copying django.conf file from files to /etc/nginx/sites-available directory
+  template:
+    src: django.conf.j2
+    dest: /etc/nginx/sites-available/django.conf
+  tags: djangoconf
+
+- name: Create a symbolic link from sites-available to sites-enabled
+  file:
+    src: /etc/nginx/sites-available/django.conf
+    dest: /etc/nginx/sites-enabled/django.conf
+    state: link
+  tags: reloadnginx
+
+- name: Reloading the nginx service and state is to be enabled
+  service:
+    name: nginx
+    state: restarted
+  tags: reloadnginx
+

@@ -1,0 +1,46 @@
+---
+- name: Running shell commands for git init & remote add
+  become_user: "{{ user_name }}" 
+  command: "{{ item }}"
+  args:
+    chdir: "{{ user_homedir }}"
+  with_items:
+    - git init
+    - git remote add origin 'https://{{ git_user }}@bitbucket.org/{{ repo_owner }}/{{ repo_name }}.git'
+  ignore_errors: yes
+  tags: addrepo
+    
+- name: creating .ssh file in app home directory
+  file:
+    path: "{{ user_homedir }}/.ssh"
+    state: directory
+    mode: '0755'
+  become_user: "{{ user_name }}"
+  ignore_errors: yes
+  tags: gitpull
+
+  #- name: copying ssh key from local to remote
+  #copy:
+  # src: id_rsa
+  # dest: "{{ user_homedir }}/.ssh/"
+  # mode: '0600'
+  #become_user: "{{ user_name }}"
+  #tags: gitpull
+
+- name: ssh to bitbucket authenticate public key
+  become_user: "{{ user_name }}"
+  shell: ssh -o StrictHostKeyChecking=no -T git@bitbucket.org -y
+  args:
+    chdir: "{{ user_homedir }}/"
+  tags: gitpull
+
+- name: Checkout The Code From Github Using Ansible.
+  git:
+    repo: "{{ repo_link }}" 
+    dest: "{{ user_homedir }}"
+    version: "{{ git_branch }}"
+    force: yes
+    accept_hostkey: yes
+  become_user: "{{ user_name }}"
+  tags: gitpull
+

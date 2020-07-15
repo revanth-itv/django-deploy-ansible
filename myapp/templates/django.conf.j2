@@ -1,0 +1,14 @@
+    server {
+    listen 80;
+    server_name  {{ apphost }} ;
+
+    location / {
+    include proxy_params;
+    proxy_pass http://unix:{{ user_homedir }}/{{ django_project_name }}/app.sock;
+    }
+
+    location /static/{
+    autoindex on;
+    alias  {{ user_homedir }}/{{ django_project_name }}/static/ ;
+    }}
+

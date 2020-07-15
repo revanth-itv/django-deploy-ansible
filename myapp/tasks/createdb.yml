@@ -1,0 +1,17 @@
+---
+- name: creating database with name "app"
+  postgresql_db:
+    name: "{{ dbname }}"
+    state: present 
+  become_user: "{{ postgres_user }}"
+  tags: db
+
+- name: creating password to app user
+  postgresql_user:
+    db: "{{ dbname }}"
+    name: "{{ postgres_user }}"
+    encrypted: yes
+    password: "{{ dbpassword }}"
+  become_user: "{{ postgres_user }}"
+  tags: db
+

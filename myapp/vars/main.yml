@@ -1,0 +1,18 @@
+---
+# vars file for myapp
+ group_name: itversity
+ user_name: itvadmin
+ user_homedir: /itvadmin
+ dbpassword: 5f4dcc3b5aa765d61d8327deb882cf99
+ dbname: app
+ postgres_user: postgres
+ git_branch: master
+ git_user: starlord24 
+ repo_owner: starlord24 
+ repo_name: django-deployment1
+ apphost: "{{ hostvars[groups['app'][0]]['inventory_hostname'] }}"
+
+ django_project_name: sampleproject
+ django_app_name: sampleapp
+
+ repo_link: git@bitbucket.org:starlord24/django-deployment1.git

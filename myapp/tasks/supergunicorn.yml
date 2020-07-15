@@ -1,0 +1,15 @@
+---
+- name: Copying gunicorn.conf file local to remote destination of /etc/supervisor/conf.d/gunicorn.conf
+  template:
+    src: gunicorn.conf.j2
+    dest: /etc/supervisor/conf.d/gunicorn.conf
+    mode: "0644"
+  tags: gunicornconf
+
+- name: Reloading the  "supervisor service" and state is to be enabled
+  service:
+    name: supervisor
+    state: restarted
+    enabled: true
+  tags: restart_supervisor
+

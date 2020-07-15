@@ -1,0 +1,26 @@
+---
+- name: Creating log dir files for Gunicorn
+  become_user: "{{ user_name }}" 
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+    mode: '0755'
+  with_items:
+     - "{{ user_homedir }}/sampleproject/sampleproject/log/gunicorn"
+  tags: addlogs
+
+- name: Creating log files for Gunicorn
+  become_user: "{{ user_name }}"
+  file:
+    path: "{{ item }}"
+    state: touch
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+    mode: '0644'
+  with_items:
+     - "{{ user_homedir }}/sampleproject/sampleproject/log/gunicorn/gunicorn.out.log"
+     - "{{ user_homedir }}/sampleproject/sampleproject/log/gunicorn/gunicorn.err.log"
+  tags: addlogs
+

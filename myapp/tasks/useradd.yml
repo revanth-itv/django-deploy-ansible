@@ -1,0 +1,24 @@
+---
+- name: Creating a system group named itversity
+  group:
+    name: "{{ group_name }}"
+    state: present
+    system: yes
+  tags: creategroup
+
+- name: Adding the systemuser itvadmin with a primary group of itversity
+  user:
+    name: "{{ user_name }}"
+    shell: /bin/bash
+    system: yes
+    createhome: yes
+    home: "{{ user_homedir }}"
+    group: "{{ group_name }}"
+  tags: createuser
+
+- name: Changing ownership for itvadmin home directory
+  file:
+    path: "{{ user_homedir }}"
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+  tags: createuser

@@ -1,0 +1,12 @@
+[program:gunicorn]
+directory={{ user_homedir }}/{{ django_project_name }}
+command={{ user_homedir }}/venv/bin/gunicorn --workers 3 --bind unix:{{ user_homedir }}/{{ django_project_name }}/app.sock {{ django_project_name }}.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile={{ user_homedir }}/{{ django_project_name }}/{{ django_project_name }}/log/gunicorn/gunicorn.err.log
+stdout_logfile={{ user_homedir }}/{{ django_project_name }}/{{ django_project_name }}/log/gunicorn/gunicorn.out.log
+environment =
+        DJANGO_SETTINGS_MODULE={{ django_project_name }}.settings
+
+[group:guni]
+programs:gunicorn

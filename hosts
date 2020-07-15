@@ -1,0 +1,15 @@
+
+[app]
+wowtest0.itversity.com ansible_user=admin ansible_python_interpreter=/usr/bin/python
+wowtest1.itversity.com ansible_user=admin ansible_python_interpreter=/usr/bin/python
+wowtest2.itversity.com ansible_user=admin ansible_python_interpreter=/usr/bin/python
+
+
+[main]
+wowtest0.itversity.com 
+
+
+[pain]
+wowtest1.itversity.com 
+wowtest2.itversity.com 
+

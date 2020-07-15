@@ -1,0 +1,8 @@
+---
+- name: Ensure SELinux is set to enforcing mode
+  become_user: "{{ user_name }}" 
+  lineinfile:
+    path: "{{ user_homedir }}/{{ django_project_name }}/.env"
+    regexp: '^DJANGO_ALLOWED_HOSTS'
+    line: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] {{ apphost }}'
+  tags: envupdate
